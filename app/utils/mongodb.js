@@ -1,10 +1,9 @@
 const { MongoClient } = require('mongodb')
-const { db } = require('../config')
 
 class MongoDB {
     static connect = async (uri) => {
         if (this.client) return this.client
-        this.client = await MongoClient.connect(db.uri)
+        this.client = await MongoClient.connect(uri)
         return this.client
     }
 }

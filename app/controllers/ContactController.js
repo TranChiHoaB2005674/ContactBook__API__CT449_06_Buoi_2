@@ -1,5 +1,20 @@
-exports.create = (req, res, next) => {
-    res.send({message: 'Create handler!'})
+const ApiError = require('../api_error')
+
+const ContactService = require('../services/ContactService')
+const MongoDB = require('../utils/mongodb')
+
+exports.create = async (req, res, next) => {
+    if (!req.body?.name) {
+        return next(new ApiError(404, 'Name can not be empty!'))
+    }
+
+    try {
+        const contactService = new ContactService(MongoDB.client)
+        const document = await contactService.create(req.body)
+        return res.send(document)
+    } catch (err) {
+        return next(new ApiError(500, 'An error occurred while creating the contact, (ERROR) ', err))
+    }
 }
 
 exports.findAll = (req, res, next) => {
