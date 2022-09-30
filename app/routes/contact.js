@@ -5,7 +5,7 @@ const router = express.Router()
 
 router.route('/')
     .get(contactController.findAll)
-    .post(contactController.update)
+    .post(contactController.create)
     .delete(contactController.deleteAll)
 
 router.route('/favorite')
