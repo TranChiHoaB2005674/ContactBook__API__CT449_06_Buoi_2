@@ -4,7 +4,6 @@ const ContactService = require('../services/ContactService')
 const MongoDB = require('../utils/mongodb')
 
 exports.create = async (req, res, next) => {
-    console.log(req.body)
     if (!req.body?.name) {
         return next(new ApiError(404, 'Name can not be empty!'))
     }
@@ -75,8 +74,16 @@ exports.update = (req, res, next) => {
     }
 }
 
-exports.deleteAll = (req, res, next) => {
-    res.send({message: 'Delete handler!'})
+exports.deleteAll = async (req, res, next) => {
+    try {
+        const contactService = new ContactService(MongoDB.client)
+        const deleteCount = await contactService.deleteAll()
+        return res.send({message: `${deleteCount} contacts were deleted successfully!`})
+    } catch (err) {
+        return next(new ApiError(
+            500, 'An error occurred while removing all contacts'
+        ))
+    }
 }
 
 exports.deleteOne = (req, res, next) => {
@@ -97,7 +104,15 @@ exports.deleteOne = (req, res, next) => {
     }
 }
 
-exports.findAllFavorite  = (req, res, next) => {
-    res.send({message: 'FindAllFavorite handler!'})
+exports.findAllFavorite  = async (req, res, next) => {
+    try {
+        const contactService = new ContactService(MongoDB.client)
+        const documents = await contactService.findFavorite()
+        return res.send(documents)
+    } catch (err) {
+        return next (new ApiError(
+            500, 'An error occurred while retrieving favorite contacts'
+        ))
+    }
 }
 

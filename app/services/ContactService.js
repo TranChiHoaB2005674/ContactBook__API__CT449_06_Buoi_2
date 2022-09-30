@@ -23,14 +23,12 @@ class ContactService {
 
     async create (payload) {
         const contact = await this.extractContactData(payload)
-        console.log("contact: ", contact)
         const result = await this.contact.findOneAndUpdate(
             contact,
             { $set: { favorite: contact.favorite === true } },
             { returnDocument: 'after', upsert: true }
         )
 
-        console.log("result: ", result)
         return result.value
     }
 
@@ -74,6 +72,18 @@ class ContactService {
         const result = await this.contact.deleteOne(filter)
 
         return result.value
+    }
+
+    async deleteAll() {
+        const result = await this.contact.deleteMany({})
+
+        return await result.deletedCount
+    }
+
+    async findFavorite() {
+        const result = await this.contact.find({favorite: true})
+
+        return await result.toArray()
     }
 }
 
