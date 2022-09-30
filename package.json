@@ -1,0 +1,33 @@
+{
+  "name": "contactbook__api__ct449_06_buoi_2",
+  "version": "1.0.0",
+  "description": "contack book api ct449 -6 lab 2",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TranChiHoaB2005674/ContactBook__API__CT449_06_Buoi_2.git"
+  },
+  "keywords": [
+    "js",
+    "node",
+    "express",
+    "json"
+  ],
+  "author": "TranChiHoaB2005674",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TranChiHoaB2005674/ContactBook__API__CT449_06_Buoi_2/issues"
+  },
+  "homepage": "https://github.com/TranChiHoaB2005674/ContactBook__API__CT449_06_Buoi_2#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "mongodb": "^4.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
